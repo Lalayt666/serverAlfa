@@ -1,0 +1,85 @@
+<div class="container" ng-controller="Menu as m">
+    <div  class="col-lg-12 col-sm-12">
+        <h1  align="center">Меню раздельного питания</h1>
+    </div>
+    <div class="ow">
+        <div class="row_1"></div>
+        <div class="row">
+            <div class="col-lg-3 col-sm-3 margin_leftawidth_small">
+                
+                <div>
+                    <div><h3 ng-bind="m.selectedMeal.name"></h3></div>
+                    <div><span ng-bind="m.selectedMeal.description"></span></div>
+                </div>
+            </div>
+            <div class="col-lg-4 col-sm-4  margin_leftawidth">
+                <table class="table table-bordered th-center">
+                    <thead>
+                        <tr class="active tr_ht">
+                            <th class="td_one" ng-click="m.sort('name')" data-toggle="tooltip" title="Отсортировать по названию">
+                                <br> Продукт </br>
+                            </th>
+                            <th>
+                                <br> Описание </br>
+                            </th>
+                            <th>
+                                <br> Выбрать </br>
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="row in m.selectedMeal.menulist | orderBy:m.sortRegion:m.reverse | filter:searchMenu" ng-dblclick="m.edit(row)">
+                            <td><span  ng-bind="row.name" ></span></td>
+                            <td><span ng-bind="row.description"></span></td>
+                            <td>
+                                <input type="checkbox" ng-model="row.ck"> <span class="glyphicon glyphicon-minus margin-icon" aria-hidden="true"></span>
+                            </td>
+                        </tr>
+                        <tr ng-if="m.isViewEditing">
+                            <td>
+                                <input type="text" class="form-control" ng-model="m.editedMenu.name">
+                            </td>
+                            <td>
+                                <input type="text" class="form-control" ng-model="m.editedMenu.description">
+                            </td>
+                            <td>
+                                <input type="checkbox" ng-model="m.editedMenu.ck"><span class="glyphicon glyphicon-minus margin-icon" aria-hidden="true"></span>
+                            </td>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="col-lg-5 col-sm-5 width_div_col_l">
+            <nav class="navbar navbar-default">
+                  <div class="container-fluid">
+                      <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                          <ul class="nav navbar-nav">
+                              <li class="dropdown">
+                                  <a href="" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><span class="glyphicon glyphicon-cog margin-icon" aria-hidden="true"></span>Действия <span class="caret"></span></a>
+                                  <ul class="dropdown-menu">
+                                      <li><a href="" ng-click="m.add()"><span class="glyphicon glyphicon-plus margin-icon" aria-hidden="true"></span>Добавить</a></li>
+                                      <li><a href="" ng-click="m.showFilter()"><span class="glyphicon glyphicon-filter margin-icon" aria-hidden="true" ></span>Фильтр</a></li>
+                                  </ul>
+                              </li>
+                          </ul>
+                      </div>
+                  </div>
+              </nav> 
+               <form name="foodForm" class="form-inline">
+                  <div class="form-group" ng-show="m.sf">
+                      <p class="glyphicon glyphicon-search"> </p><label for="exampleInputName2">  Поиск</label>
+                      <input  name="foodName" type="text" class="form-control" id="exampleInputName2" placeholder="Введите название продукта" ng-model="searchMenu" ng-minlength="3" >
+                  </div>
+                  <div ng-messages="foodForm.foodName.$error">
+                  <br>
+                      <p ng-message="minlength" class="glyphicon glyphicon-remove-sign"> Некорректно введено имя!</p>
+                  </div>
+              </form>
+             <button type="text" class="btn btn-success" ng-click='m.save()' ng-if='m.isViewEditing'>Сохранить</button>
+             <button type="default" class="btn btn-success" ng-click='m.cancel()' ng-if='m.isViewEditing'>Отмена</button>
+            </div>
+        </div>
+    </div>
+
+</div>

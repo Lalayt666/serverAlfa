@@ -1,0 +1,106 @@
+﻿<!DOCTYPE html>
+<!--| 
+Активация приложения с помощью нестандартного атрибута ngApp                                            | 2
+|-->
+<html ng-app="super_food">
+
+<head>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="bower_components/bootstrap/fonts/glyphicons-halflings-regular.ttf">
+    <link rel="stylesheet" type="text/css" href="bower_components/bootstrap/dist/css/bootstrap.css" />
+    <link rel="stylesheet" type="text/css" href="client/content/style/mystyle.css" />
+</head>
+
+<body>
+    <!--| 
+    Инициализация переменной templateUrl значением, содержащим путь к представлению "Питание",          | 4
+    с помощью нестандартного атрибута ngInit                                                            |-->
+    <div ng-controller="AuthorisationCtrl as au">
+        <div class="card">
+            <nav class="navbar">
+                <div class="container-fluid">
+                    <!-- Brand and toggle get grouped for better mobile display -->
+                    <div class="navbar-header inline">
+                        <span class="glyphicon glyphicon-leaf margin-icon marg_top" aria-hidden="true"></span>
+                    </div>
+                    <!-- Collect the nav links, forms, and other content for toggling -->
+                    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                        <ul class="nav navbar-nav">
+                            <li class="active"><a href="#/home">Авторизация</a></li>
+                            <li><a href="#/library/1">Библиотека</a></li>
+                            <li><a href="#/menu/1">Меню</a></li>
+                            <li class="margin_l_center">
+                                <div class="nav_text_color">
+                                  
+                                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target=".bs-example-modal-sm" data-toggle="tooltip" title="Нажмите, если хотите узнать, какой текущий прием пищи">Пора поесть?</button>
+                                    <div class="modal fade bs-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel">
+                                        <div class="modal-dialog modal-sm" role="document" >
+                                            <div class="modal-content modal_content">
+                                                <form>
+                                                    <div class="panel panel-default">
+                                                        <div class="panel-heading">
+                                                            <h3 class="heading_h">Пора поесть?</h3></div>
+                                                        <div class="panel-body panel_body_pad">
+                                                            <table class="table">
+                                                                <tr>
+                                                                    <td>
+                                                                        <label for="exampleInputEmail1">Время:</label>
+                                                                        <p class="help-block" ng-bind="au.dateNew() | date:'HH:mm'"></p>
+                                                                    </td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td>
+                                                                        <label for="exampleInputEmail1">Прием пищи:</label>
+                                                                        <br>
+                                                                        <span class="help-block" ng-bind="au.curFood()"></span>
+                                                                        <br>
+                                                                    </td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td style="padding-left:80px;">
+                                                                    <br>
+                                                                        <a href="#/menu/{{au.curId}}">
+                                                                            <button type="text" class="brn btn-primary btn_size_new">Меню</button>
+                                                                        </a>
+                                                                        <br>
+                                                                    </td>
+                                                                </tr>
+                                                            </table>
+                                                        </div>
+                                                    </div>
+                                            </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <!-- /.navbar-collapse -->
+        </div>
+        <!-- /.container-fluid -->
+        </nav>
+        <h2 ng-show="au.showName()">Привет,{{au.name}}!</h2>
+    </div>
+    <div class="container">
+        
+        <div ng-view></div>
+    </div>
+    </div>
+    <!--|
+    Подключение фреймворка AngularJS. *.js                                                              | 1
+    |-->
+    <script src="bower_components/angular/angular.min.js"></script>
+    <script src="bower_components/angular-route/angular-route.min.js"></script>
+    <script src="bower_components/angular-messages/angular-messages.min.js"></script>
+    <script src="bower_components/jquery/dist/jquery.min.js"></script>
+    <script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script src="client/app.js"></script>
+    <script src="client/app/Authorisation/AuthorisationCtrl.js"></script>
+    <script src="client/app/Library/foodListCtrl.js"></script>
+   <script src="client/app/Home/homeCtrl.js"></script>
+    <script src="client/app/Menu/menuCtrl.js"></script>
+</body>
+
+</html>

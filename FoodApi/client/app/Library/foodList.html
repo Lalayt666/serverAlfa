@@ -1,0 +1,91 @@
+<div class="container" ng-controller="FoodController as f">
+    <div class="col-lg-12 col-sm-12">
+        <h1 align="center">Библиотека</h1>
+    </div>
+    <div class="ow">
+        <div class="row_1"></div>
+        <div class="row">
+            <div class="col-lg-3 col-sm-3 margin_leftawidth_small">
+                <img ng-src="{{f.selectedFood.imagePath}}" alt="tomat" class="img-thumbnail">
+                <div>
+                    <br>
+                    <br>
+                    <br>
+                    <div><span ng-bind="f.selectedFood.name"></span></div>
+                </div>
+            </div>
+            <div class="col-lg-4 col-sm-4  margin_leftawidth">
+                <table class="table table-bordered th-center">
+                    <thead>
+                        <tr class="active tr_ht">
+                            <th class="td_one" ng-click="f.sort('name')" data-toggle="tooltip" title="Отсортировать по названию">
+                                <br>Продукт (100г.)</br>
+                            </th>
+                            <th ng-click="f.sort('kkal')" data-toggle="tooltip" title="Отсортировать по кол. килокалорий">
+                                <br>Килокалории</br>
+                            </th>
+                            <th>
+                                <br> </br>
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="row in f.selectedFood.items | orderBy:f.sortRegion:f.reverse | filter:searchFood" ng-dblclick="f.edit(row)">
+                            <td><span ng-bind="row.name"></span></td>
+                            <td><span ng-bind="row.kkal" ng-class="{'low': row.checkK}"></span></td>
+                            <td>
+                                <input type="checkbox" ng-model="row.checkK">
+                            </td>
+                        </tr>
+                        <tr ng-if="f.isViewEditing">
+                            <td>
+                                <input type="text" class="form-control" ng-model="f.editedFood.name">
+                            </td>
+                            <td>
+                                <input type="text" class="form-control" ng-model="f.editedFood.kkal">
+                            </td>
+                            <td>
+                                <input type="checkbox" ng-model="f.editedFood.checkK">
+                            </td>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                <p>Сумма килокалорий: {{f.summ()}}</p>
+            </div>
+            <div class="col-lg-5 col-sm-5 width_div_col_l">
+                <nav class="navbar navbar-default">
+                    <div class="container-fluid">
+                        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                            <ul class="nav navbar-nav">
+                                <li class="dropdown">
+                                    <a href="" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><span class="glyphicon glyphicon-cog margin-icon" aria-hidden="true"></span>Действия <span class="caret"></span></a>
+                                    <ul class="dropdown-menu">
+                                        <li><a href="" ng-click="f.add()"><span class="glyphicon glyphicon-plus margin-icon" aria-hidden="true"></span>Добавить</a></li>
+                                         <li><a href="" ng-click="f.remove()"><span class="glyphicon glyphicon-minus margin-icon" aria-hidden="true"></span>Удалить</a></li>
+                                        <li role="separator" class="divider"></li>
+                                        <li><a href="" ng-click="f.sort('checkK')" data-toggle="tooltip" title="Отсортировать выбранные"><span class="glyphicon glyphicon-sort margin-icon" aria-hidden="true"></span>Сортировка</a></li>
+                                        <li role="separator" class="divider"></li>
+                                        <li><a href="" ng-click="f.showFilter()"><span class="glyphicon glyphicon-filter margin-icon" aria-hidden="true" ></span>Фильтр</a></li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </nav>
+                <form name="foodForm" class="form-inline">
+                    <div class="form-group" ng-show="f.sf">
+                        <p class="glyphicon glyphicon-search"> </p><label for="exampleInputName2">  Поиск</label>
+                        <input  name="foodName" type="text" class="form-control" id="exampleInputName2" placeholder="Введите название продукта" ng-model="searchFood" ng-minlength="3" >
+                    </div>
+                    <div ng-messages="foodForm.foodName.$error">
+                    <br>
+                        <p ng-message="minlength" class="glyphicon glyphicon-remove-sign"> Введенное имя слишком короткое!</p>
+                    </div>
+                </form>
+                <button type="text" class="btn btn-success" ng-click='f.save()' ng-if='f.isViewEditing'>Сохранить</button>
+                <button type="default" class="btn btn-success" ng-click='f.remove()' ng-if='f.isViewEditing'>Отмена</button>
+            </div>
+        </div>
+    </div>
+</div>

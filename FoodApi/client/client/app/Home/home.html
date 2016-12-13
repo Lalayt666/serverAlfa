@@ -1,0 +1,84 @@
+<div class="container" >
+    <div class="col-lg-12 col-sm-12">
+    </div>
+    <div class="ow" ng-controller="Authorisation as at">
+        <div class="row_1"></div>
+        <div class="row">
+            <div class="col-lg-4 col-sm-4" style="width:250px;">
+                <nav class="navbar navbar-default">
+                    <div class="container-fluid">
+                        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                            <ul class="nav navbar-nav">
+                                <li class="dropdown">
+                                    <a href="" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><span class="glyphicon glyphicon-cog margin-icon" aria-hidden="true"></span>Действия <span class="caret"></span></a>
+                                    <ul class="dropdown-menu">
+                                        <li><a href="" ng-click="at.add()"><span class="glyphicon glyphicon-plus margin-icon" aria-hidden="true"></span>Добавить</a></li>
+                                        <li ng-click="at.showFilter()"><a href=""><span class="glyphicon glyphicon-filter margin-icon" aria-hidden="true" ></span>Фильтр</a></li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </nav>
+                <form name="foodForm" class="form-inline">
+                    <div class="form-group" ng-show="at.sf">
+                        <p class="glyphicon glyphicon-search"> </p><label for="exampleInputName2">  Поиск</label>
+                        <input  name="foodName" type="text" class="form-control" id="exampleInputName2" placeholder="Введите название продукта" ng-model="searchFood" ng-minlength="3" >
+                    </div>
+                    <div ng-messages="foodForm.foodName.$error">
+                    <br>
+                        <p ng-message="minlength" class="glyphicon glyphicon-remove-sign"> Введенное имя слишком короткое!</p>
+                    </div>
+                </form>
+                <button type="text" class="btn btn-success" ng-click='at.save()' ng-if='at.isViewEditing'>Сохранить</button>
+                <button type="default" class="btn btn-success" ng-click='at.cancel()' ng-if='at.isViewEditing'>Отмена</button>
+            </div>
+            <div >
+                <div class="col-lg-7 col-sm-7 text-center margin_leftawidth">
+                    <table class="table table-bordered th-center">
+                        <thead>
+                            <tr class="active" style="height:70px;">
+                                <th>
+                                    <br>Изображение</th>
+                                <th style="width:120px"> 
+                                    <br>Название<span class="glyphicon glyphicon-sort margin-icon" aria-hidden="true" ng-click="at.sort('name')"></span></th>
+                                <th>
+                                    <br>Описание</th>
+                                <th>
+                                    <br>Редактировать</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr ng-repeat="row in at.foodList | orderBy:at.sortRegion:at.reverse | filter:searchFood"" >
+                                <td>
+                                    <a href="#/library/{{row.id}}" data-toggle="tooltip" title="Нажмите, чтобы узнать с чем данный продукт сочетается"><img style="width:70px; height:70px;" ng-src="{{row.image}}" alt=""></a>
+                                </td>
+                                <td><span ng-bind="row.name"></span></td>
+                                <td><span ng-bind="row.description"></span></td>
+                                <td >
+                                    <input ng-click="at.edit(row)" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option{{row.id}}"></td>
+                            </tr>
+                            <tr ng-if="at.isViewEditing">
+                            <td>
+                                  <input type="text" class="form-control" ng-model="at.editedFoodList.image">
+                                </td>
+                                <td>
+                                    <input type="text" class="form-control" ng-model="at.editedFoodList.name">
+                                </td>
+                                <td>
+                                    <input type="text" class="form-control" ng-model="at.editedFoodList.description">
+                                </td>
+                                <td>
+                                    <input type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option{{row.id}}" ng-model="at.editedFoodList.ck">
+                                </td>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                
+            </div>
+        </div>
+    </div>
+   <span class="margin_name_center "> &copy;Закордонец Викрория  </span> 
+</div>
