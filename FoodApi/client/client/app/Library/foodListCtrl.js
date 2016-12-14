@@ -35,16 +35,25 @@
         init();
 
         function init() {
-            /*$http({ method: "GET", url: "api/food" }).then(function(responce) {
+            $http({ method: "GET", url: "api/food" }).then(function(responce) {
                 fd.data = responce.data;
                 console.log(responce);
                 console.log(fd.data);
+                 for (var i = 0; i < fd.data.length; i++) {
+                    var cur = fd.data[i];
+                    if (cur.id == $routeParams.idFood) {
+
+                        fd.selectedFood = cur;
+                        break;
+                    }
+                } 
+        }
 
                 
-            });*/
+            });
             
             
-            fd.data = [
+           /* fd.data = [
              {
 
                     id: -1,
@@ -112,17 +121,9 @@
 
                 }
 
-            ];
+            ];*/
 
-            for (var i = 0; i < fd.data.length; i++) {
-                    var cur = fd.data[i];
-                    if (cur.id == $routeParams.idFood) {
-
-                        fd.selectedFood = cur;
-                        break;
-                    }
-                } 
-        }
+           
        
 
         function add() {
